@@ -11,7 +11,7 @@ urlpatterns = [
 
     path('api/token/register/' , views.RegisterView.as_view() , name = 'register') ,
 
-    path('api/token/email-verify/',views.VerifyEmail.as_view(), name = 'verify'),
+#    path('api/token/email-verify/',views.VerifyEmail.as_view(), name = 'verify'),
 
     path('api/token/change-password/', views.ChangePasswordView.as_view(), name='change-password'),
 

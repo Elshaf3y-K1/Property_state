@@ -1,7 +1,6 @@
 from pathlib import Path
 import os 
-#import django_heroku
-#from decouple import Config
+
 
 
 SOCIAL_SECRET =" shfhsgfh "
@@ -25,7 +24,7 @@ ALLOWED_HOSTS = ['*','localhost', '127.0.0.1','http://elshaf3y.pythonanywhere.co
 # Application definition
 
 INSTALLED_APPS = [
-    'jazzmin',
+#    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
