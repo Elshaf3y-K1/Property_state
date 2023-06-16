@@ -46,7 +46,6 @@ class UnitSearchView(generics.ListCreateAPIView):
         queryset = super().get_queryset()
         if min_price and max_price:
             queryset = queryset.filter(price__gte=min_price, price__lte=max_price)
-
         return queryset
 
 

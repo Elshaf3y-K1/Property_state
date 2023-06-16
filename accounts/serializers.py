@@ -18,16 +18,15 @@ class UserSerializers(serializers.ModelSerializer):
 # for REGISTERATION 
 
 class RegisterSerialzier(serializers.ModelSerializer):
-    first_name = serializers.CharField(required= True)
-    last_name = serializers.CharField(required= True)
+    first_name = serializers.CharField(required= True)  
     email = serializers.EmailField(required= True)
-    username = serializers.CharField(required= True)
+    phone_number = serializers.CharField(required= True)
     password = serializers.CharField(required= True)
     password2 = serializers.CharField(required= True)
 
     class Meta:
         model = User
-        fields = ['id','first_name','last_name','email','username','password','password2']
+        fields = ['id','first_name','email','phone_number','password','password2']
         read_only_fields = ['id']
         extra_kwargs={
             'password' :{'write_only':True},
@@ -69,7 +68,7 @@ class RegisterSerialzier(serializers.ModelSerializer):
             first_name=self.validated_data['first_name'],
             last_name=self.validated_data['last_name'],
             email=self.validated_data['email'],
-            username=self.validated_data['username'],
+            phone_number=self.validated_data['phone_number'],
             )
         user.set_password(self.validated_data['password'])
         user.save()
