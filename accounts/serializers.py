@@ -33,16 +33,16 @@ class RegisterSerialzier(serializers.ModelSerializer):
             'password2' :{'write_only':True},
         } 
 
-    def validate_password(self, attrs):
-        small , capital= 0 , 0
-        for i in str(attrs):
-            if i.isupper():
-                capital +=1
-            elif i.islower():
-                small +=1
-        if len(str(attrs)) <= 10  or small<=1 or capital<=1:
-            raise CustomValidation(_("The password must consist of more than 10 characters including 4 uppercase and 4 lowercase letters "))
-        return attrs
+    # def validate_password(self, attrs):
+    #     small , capital= 0 , 0
+    #     for i in str(attrs):
+    #         if i.isupper():
+    #             capital +=1
+    #         elif i.islower():
+    #             small +=1
+    #     if len(str(attrs)) <= 10  or small<=1 or capital<=1:
+    #         raise CustomValidation(_("The password must consist of more than 10 characters including 4 uppercase and 4 lowercase letters "))
+    #     return attrs
         
 
     def validate_email(self , attrs):
@@ -51,10 +51,10 @@ class RegisterSerialzier(serializers.ModelSerializer):
         return attrs
 
 
-    def validate_username(self,attrs):
-        if self.Meta.model.objects.filter(username=attrs).exists():
-            raise CustomValidation(_("username already exist"))
-        return attrs
+    # def validate_username(self,attrs):
+    #     if self.Meta.model.objects.filter(username=attrs).exists():
+    #         raise CustomValidation(_("username already exist"))
+    #     return attrs
 
 
     def validate(self, attrs):

@@ -9,7 +9,7 @@ AUTH_PROVIDERS = {'facebook': 'facebook', 'google': 'google','twitter': 'twitter
 
 class User(AbstractUser):
     email = models.EmailField(_("email address"), blank=False , unique=True)
-    username = models.CharField(_("username"), max_length=70, unique=True )
+    username = models.CharField(_("username"), max_length=70, unique=False , null=True )
     phone_number = models.CharField(max_length=70 , blank=True , null=True)
     auth_provider = models.CharField(max_length=255, blank=False,null=False, default=AUTH_PROVIDERS.get('email'))
     USERNAME_FIELD = "email"
