@@ -15,7 +15,7 @@ class Unit(models.Model):
     number = models.IntegerField(_("number"))
     governorate = models.TextField(_("governorate") , null=True , blank=True)
     city = models.TextField(_("city") , null=True , blank=True)
-    location = models.URLField(_("location"), max_length=300)
+    location = models.CharField(_("location"), max_length=1000)
     description = models.TextField(_("description") , null=True , blank=True)
     favourite = models.ManyToManyField(settings.AUTH_USER_MODEL, through='Likes' , related_name='favourite')
     is_approved =models.BooleanField(_("is_approved") ,default=False)
