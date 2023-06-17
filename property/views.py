@@ -7,7 +7,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from .models import Unit
 from .serializers import UnitSerializers
 from django.shortcuts import get_object_or_404
-
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 
 
 
@@ -15,7 +15,9 @@ class UnitList(generics.ListCreateAPIView):
     queryset = Unit.objects.filter(is_approved =True)
     serializer_class = UnitSerializers
     authentication_classes = (JWTAuthentication,)
-    permission_classes = (IsAuthenticated,) 
+    # permission_classes = (IsAuthenticated,) 
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
     
     def list(self, request):
         queryset = self.get_queryset()
@@ -27,14 +29,14 @@ class UnitList(generics.ListCreateAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save(self.request.user)     
         return Response(serializer.data)  
-    
+   
 
 
 class UnitSearchView(generics.ListCreateAPIView):
     queryset = Unit.objects.all()
     serializer_class = UnitSerializers
     authentication_classes = (JWTAuthentication,)
-    permission_classes = (IsAuthenticated,) 
+    # permission_classes = (IsAuthenticated,) 
 
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ['price']

@@ -19,6 +19,7 @@ class Unit(models.Model):
     description = models.TextField(_("description") , null=True , blank=True)
     favourite = models.ManyToManyField(settings.AUTH_USER_MODEL, through='Likes' , related_name='favourite')
     is_approved =models.BooleanField(_("is_approved") ,default=False)
+    images = models.ImageField(upload_to='photos/%Y/%m/%d/',null=True)
 
     def get_likes_for_user(self , user):
         answer = False

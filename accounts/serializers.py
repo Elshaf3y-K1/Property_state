@@ -66,7 +66,7 @@ class RegisterSerialzier(serializers.ModelSerializer):
     def save(self, **kwargs):
         user = self.Meta.model(
             first_name=self.validated_data['first_name'],
-            last_name=self.validated_data['last_name'],
+            
             email=self.validated_data['email'],
             phone_number=self.validated_data['phone_number'],
             )
@@ -76,12 +76,12 @@ class RegisterSerialzier(serializers.ModelSerializer):
 
 
 
-# class EmailVerificationSerializer(serializers.ModelSerializer):
-#     token = serializers.CharField(max_length=555)
+class EmailVerificationSerializer(serializers.ModelSerializer):
+    token = serializers.CharField(max_length=555)
 
-#     class Meta:
-#         model = User
-#         fields = ['token']
+    class Meta:
+        model = User
+        fields = ['token']
 
 
 
@@ -101,8 +101,8 @@ class LoginSerializer(serializers.ModelSerializer):
         filtered_user_by_email = User.objects.filter(email=email)
         user = authenticate(email=email, password=password)
 
-        if filtered_user_by_email.exists() and filtered_user_by_email[0] != 'email':
-            raise CustomValidation(_('Please continue your login using '+ filtered_user_by_email[0]))
+        # if filtered_user_by_email.exists() and filtered_user_by_email[0] != 'email':
+        #     raise CustomValidation(_('Please continue your login using '))
         if not user:
             raise CustomValidation(_('the Email and password incorrect'))
         if not user.is_active:
@@ -128,7 +128,7 @@ class PasswordChangeSerializer(serializers.Serializer):
                 capital +=1
             elif i.islower():
                 small +=1
-        if len(str(attrs)) <= 10  or small<=3 or capital<=3:
+        if len(str(attrs)) <= 10  or small<=1 or capital<=1:
             raise CustomValidation(_("The password must consist of more than 10 characters including 4 uppercase and 4 lowercase letters "))
         return attrs
 

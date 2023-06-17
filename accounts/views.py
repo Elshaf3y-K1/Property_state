@@ -32,28 +32,28 @@ class RegisterView(APIView):
 
 
 #verify user by link activate
-# class VerifyEmail(APIView):
+class VerifyEmail(APIView):
 
-#     serializer_class = serializers.EmailVerificationSerializer
-#     renderer_classes = [TemplateHTMLRenderer]
-#     token_param_config = openapi.Parameter('token',in_=openapi.IN_QUERY, description='Description', type=openapi.TYPE_STRING)
-#     @swagger_auto_schema(manual_parameters=[token_param_config])
-#     def get(self , request , **kwargs):
-#         token = request.GET.get('token')
+    serializer_class = serializers.EmailVerificationSerializer
+    renderer_classes = [TemplateHTMLRenderer]
+    token_param_config = openapi.Parameter('token',in_=openapi.IN_QUERY, description='Description', type=openapi.TYPE_STRING)
+    @swagger_auto_schema(manual_parameters=[token_param_config])
+    def get(self , request , **kwargs):
+        token = request.GET.get('token')
 
-#         try :
-#             payload = jwt.decode(token,settings.SECRET_KEY,algorithms=['HS256'])
-#             user = User.objects.get(id=payload['user_id'])
-#             if not user.is_verified:
-#                 user.is_verified = True
-#                 user.save()
-#                 return Response({ 'status' : True ,'message' :'Congratolations  Your Email is Activated'},template_name='email_verified.html',status=status.HTTP_200_OK)
-#             return Response({ 'status' : False ,'message' :'Error'},template_name='error404.html',status=status.HTTP_200_OK)
-#         except jwt.ExpiredSignatureError as identifier:
-#             return Response({ 'status' : False ,'message' :'Activation Link Expired'} ,template_name='email_failed.html',status=status.HTTP_400_BAD_REQUEST)
+        try :
+            payload = jwt.decode(token,settings.SECRET_KEY,algorithms=['HS256'])
+            user = User.objects.get(id=payload['user_id'])
+            if not user.is_verified:
+                user.is_verified = True
+                user.save()
+                return Response({ 'status' : True ,'message' :'Congratolations  Your Email is Activated'},template_name='email_verified.html',status=status.HTTP_200_OK)
+            return Response({ 'status' : False ,'message' :'Error'},template_name='error404.html',status=status.HTTP_200_OK)
+        except jwt.ExpiredSignatureError as identifier:
+            return Response({ 'status' : False ,'message' :'Activation Link Expired'} ,template_name='email_failed.html',status=status.HTTP_400_BAD_REQUEST)
 
-#         except jwt.DecodeError as identifier:
-#             return Response({ 'status' : False ,'message' :'Token invalid'} ,template_name='error404.html',status=status.HTTP_400_BAD_REQUEST)
+        except jwt.DecodeError as identifier:
+            return Response({ 'status' : False ,'message' :'Token invalid'} ,template_name='error404.html',status=status.HTTP_400_BAD_REQUEST)
 
 
 class LoginAPIView(generics.GenericAPIView):
@@ -67,9 +67,9 @@ class LoginAPIView(generics.GenericAPIView):
         login(request,user)
         data = {
             "first_name" :user.first_name ,
-            "last_name" : user.last_name , 
+ 
             "email" : user.email ,
-            "username" : user.username,
+            "phone_number" : user.phone_number,
             "access" : user.get_tokens_for_user()['access'],
             "refresh" : user.get_tokens_for_user()['refresh'],
         }

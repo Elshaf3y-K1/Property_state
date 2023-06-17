@@ -12,7 +12,7 @@ class ImageSerializer(serializers.ModelSerializer):
 class UnitSerializers(serializers.ModelSerializer):
 
     id = serializers.CharField(read_only=True)
-    images = ImageSerializer(many=True ,read_only=True)
+#    images = ImageSerializer(many=True)
     is_liked = serializers.SerializerMethodField(read_only=True)
 
     def get_is_liked(self , obj):
@@ -43,15 +43,16 @@ class UnitSerializers(serializers.ModelSerializer):
             city = self.validated_data['city'],
             location = self.validated_data['location'],
             description  = self.validated_data['description'],
+            images  = self.validated_data['images'],
 
 
         )
         unit.save()
-        image = Image(
-            unit = unit ,
-            image = self.validated_data.get('image')
-        )
-        image.save()        
-        return unit
+        # image = Image(
+        #     unit = unit ,
+        #     image = self.validated_data.get('image')
+        # )
+        # image.save()        
+        # return unit
         #serializer.save(request.user)
 
